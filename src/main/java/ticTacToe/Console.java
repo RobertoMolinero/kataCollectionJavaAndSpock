@@ -11,18 +11,18 @@ public class Console {
         t.switchActivePlayer();
 
         do {
-            int row, column;
+            int x, y;
 
             t.switchActivePlayer();
             System.out.println(t.getOutput());
 
             Scanner input = new Scanner(System.in);
-            System.out.print("row: ");
-            row = input.nextInt();
-            System.out.print("column: ");
-            column = input.nextInt();
+            System.out.print("x: ");
+            x = input.nextInt();
+            System.out.print("y: ");
+            y = input.nextInt();
 
-            t.enterMove(row, column);
+            t.enterMove(x, y);
         } while (t.evaluateGame() == GameState.UNDECIDED);
 
         System.out.println(t.getOutput());

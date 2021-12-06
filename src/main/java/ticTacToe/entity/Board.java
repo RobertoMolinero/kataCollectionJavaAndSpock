@@ -19,7 +19,7 @@ public class Board {
     }
 
     public void setCell(ActivePlayer activePlayer, int x, int y) {
-        fields[x][y] = activePlayer.getPiece();
+        fields[y][x] = activePlayer.getPiece();
     }
 
     public boolean isFieldCoordinateValid(int x, int y) {
@@ -27,7 +27,7 @@ public class Board {
     }
 
     public boolean isCellEmpty(int x, int y) {
-        return fields[x][y] == EMPTY;
+        return fields[y][x] == EMPTY;
     }
 
     public boolean isActivePlayerWinning(ActivePlayer activePlayer) {
@@ -36,22 +36,15 @@ public class Board {
                 return true;
         }
 
-        if (isDiagonalComplete(activePlayer))
-            return true;
-
-        return false;
+        return isDiagonalComplete(activePlayer);
     }
 
-    private boolean isRowComplete(ActivePlayer activePlayer, int x) {
-        if (fields[x][0] == activePlayer.getPiece() && fields[x][1] == activePlayer.getPiece() && fields[x][2] == activePlayer.getPiece())
-            return true;
-        return false;
+    private boolean isRowComplete(ActivePlayer activePlayer, int y) {
+        return fields[0][y] == activePlayer.getPiece() && fields[1][y] == activePlayer.getPiece() && fields[2][y] == activePlayer.getPiece();
     }
 
-    private boolean isColumnComplete(ActivePlayer activePlayer, int y) {
-        if (fields[0][y] == activePlayer.getPiece() && fields[1][y] == activePlayer.getPiece() && fields[2][y] == activePlayer.getPiece())
-            return true;
-        return false;
+    private boolean isColumnComplete(ActivePlayer activePlayer, int x) {
+        return fields[x][0] == activePlayer.getPiece() && fields[x][1] == activePlayer.getPiece() && fields[x][2] == activePlayer.getPiece();
     }
 
     private boolean isDiagonalComplete(ActivePlayer activePlayer) {
@@ -60,9 +53,9 @@ public class Board {
     }
 
     public boolean isBoardFull() {
-        for (char[] row : fields) {
-            for (char column : row) {
-                if (column == 'o') {
+        for (char[] y : fields) {
+            for (char x : y) {
+                if (x == 'o') {
                     return false;
                 }
             }

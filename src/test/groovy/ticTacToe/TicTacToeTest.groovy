@@ -23,39 +23,39 @@ class TicTacToeTest extends Specification {
     }
 
     @Unroll
-    def "Die valide Eingabe (x=#x, y=#y) für Spieler #player wird korrekt eingetragen."() {
+    def "Die valide Eingabe (x=#x, y=#y) fuer Spieler #player wird korrekt eingetragen."() {
         given:
         TicTacToe sut = new TicTacToe()
         sut.activePlayer = player
-        sut.board.fields = fieldsInput
+        sut.board.fields = fieldsInput as char[][]
 
         when:
         sut.enterMove(x, y)
 
         then:
-        sut.board.fields == fieldsOutput
+        sut.board.fields == fieldsOutput as char[][]
 
         where:
         player                  | fieldsInput                                         | x | y || fieldsOutput
         ActivePlayer.PLAYER_ONE | [['o', 'o', 'o'], ['o', 'o', 'o'], ['o', 'o', 'o']] | 0 | 0 || [['x', 'o', 'o'], ['o', 'o', 'o'], ['o', 'o', 'o']]
         ActivePlayer.PLAYER_TWO | [['x', 'o', 'o'], ['o', 'o', 'o'], ['o', 'o', 'o']] | 1 | 1 || [['x', 'o', 'o'], ['o', '+', 'o'], ['o', 'o', 'o']]
-        ActivePlayer.PLAYER_ONE | [['x', 'o', 'o'], ['o', '+', 'o'], ['o', 'o', 'o']] | 0 | 2 || [['x', 'o', 'x'], ['o', '+', 'o'], ['o', 'o', 'o']]
-        ActivePlayer.PLAYER_TWO | [['x', 'o', 'x'], ['o', '+', 'o'], ['o', 'o', 'o']] | 2 | 0 || [['x', 'o', 'x'], ['o', '+', 'o'], ['+', 'o', 'o']]
-        ActivePlayer.PLAYER_ONE | [['x', 'o', 'x'], ['o', '+', 'o'], ['+', 'o', 'o']] | 2 | 2 || [['x', 'o', 'x'], ['o', '+', 'o'], ['+', 'o', 'x']]
+        ActivePlayer.PLAYER_ONE | [['x', 'o', 'o'], ['o', '+', 'o'], ['o', 'o', 'o']] | 0 | 2 || [['x', 'o', 'o'], ['o', '+', 'o'], ['x', 'o', 'o']]
+        ActivePlayer.PLAYER_TWO | [['x', 'o', 'o'], ['o', '+', 'o'], ['x', 'o', 'o']] | 2 | 0 || [['x', 'o', '+'], ['o', '+', 'o'], ['x', 'o', 'o']]
+        ActivePlayer.PLAYER_ONE | [['x', 'o', '+'], ['o', '+', 'o'], ['x', 'o', 'o']] | 2 | 2 || [['x', 'o', '+'], ['o', '+', 'o'], ['x', 'o', 'x']]
     }
 
     @Unroll
-    def "Die nicht valide Eingabe (x=#x, y=#y) für Spieler #player wird nicht eingetragen."() {
+    def "Die nicht valide Eingabe (x=#x, y=#y) fuer Spieler #player wird nicht eingetragen."() {
         given:
         TicTacToe sut = new TicTacToe()
         sut.activePlayer = player
-        sut.board.fields = fields
+        sut.board.fields = fields as char[][]
 
         when:
         sut.enterMove(x, y)
 
         then:
-        sut.board.fields == fields
+        sut.board.fields == fields as char[][]
 
         where:
         player                  | fields                                              | x  | y
@@ -67,22 +67,22 @@ class TicTacToeTest extends Specification {
     }
 
     @Unroll
-    def "Das bereits besetzte Feld (x=#x, y=#y) für Spieler #player wird nicht eingetragen."() {
+    def "Das bereits besetzte Feld (x=#x, y=#y) fuer Spieler #player wird nicht eingetragen."() {
         given:
         TicTacToe sut = new TicTacToe()
         sut.activePlayer = player
-        sut.board.fields = fields
+        sut.board.fields = fields as char[][]
 
         when:
         sut.enterMove(x, y)
 
         then:
-        sut.board.fields == fields
+        sut.board.fields == fields as char[][]
 
         where:
         player                  | fields                                              | x | y
         ActivePlayer.PLAYER_ONE | [['o', 'o', 'o'], ['o', '+', 'o'], ['o', 'o', 'o']] | 1 | 1
-        ActivePlayer.PLAYER_TWO | [['+', 'x', 'o'], ['o', '+', 'x'], ['+', 'o', 'x']] | 2 | 0
+        ActivePlayer.PLAYER_TWO | [['+', 'x', '+'], ['o', '+', 'x'], ['x', 'o', 'x']] | 2 | 0
         ActivePlayer.PLAYER_TWO | [['+', 'x', 'o'], ['+', 'o', 'x'], ['o', '+', 'x']] | 1 | 2
     }
 
@@ -108,7 +108,7 @@ class TicTacToeTest extends Specification {
     def "Der aktuelle Spielstand (Row) #fields mit aktuellen Spieler #player wird korrekt bewertet."() {
         given:
         TicTacToe sut = new TicTacToe()
-        sut.board.fields = fields
+        sut.board.fields = fields as char[][]
         sut.activePlayer = player
 
         when:
@@ -131,7 +131,7 @@ class TicTacToeTest extends Specification {
     def "Der aktuelle Spielstand (Column) #fields mit aktuellen Spieler #player wird korrekt bewertet."() {
         given:
         TicTacToe sut = new TicTacToe()
-        sut.board.fields = fields
+        sut.board.fields = fields as char[][]
         sut.activePlayer = player
 
         when:
@@ -154,7 +154,7 @@ class TicTacToeTest extends Specification {
     def "Der aktuelle Spielstand (Diagonal) #fields mit aktuellen Spieler #player wird korrekt bewertet."() {
         given:
         TicTacToe sut = new TicTacToe()
-        sut.board.fields = fields
+        sut.board.fields = fields as char[][]
         sut.activePlayer = player
 
         when:
@@ -175,7 +175,7 @@ class TicTacToeTest extends Specification {
     def "Der aktuelle Spielstand (Full) #board wird korrekt bewertet."() {
         given:
         TicTacToe sut = new TicTacToe()
-        sut.board.fields = [['+', 'x', '+'], ['+', 'x', '+'], ['x', '+', 'x']]
+        sut.board.fields = [['+', 'x', '+'], ['+', 'x', '+'], ['x', '+', 'x']] as char[][]
 
         when:
         def gameState = sut.evaluateGame()

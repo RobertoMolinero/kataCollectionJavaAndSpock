@@ -17,11 +17,11 @@ public class TicTacToe {
 
     public String getOutput() {
         final StringBuilder sb = new StringBuilder();
-        sb.append("Active Player: " + activePlayer.getName() + "\n");
+        sb.append("Active Player: ").append(activePlayer.getName()).append("\n");
 
-        for (char[] row : board.getFields()) {
-            for (char col : row) {
-                sb.append(col);
+        for (char[] y : board.getFields()) {
+            for (char x : y) {
+                sb.append(x);
             }
             sb.append("\n");
         }
